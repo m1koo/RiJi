@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.miko.dao.ArticleDao">
+    <select id="searchArticle" resultType="Article">
+        SELECT user_id,content,edit_time,out_visible FROM article
+        where user_id = #{userId} and edit_time = #{editTime}
+    </select>
+
+    <insert id="insertArticle" parameterType="Article">
+        INSERT INTO article(user_id,edit_time,content,out_visible)
+         values (#{userId},#{editTime},#{content},#{outVisible});
+    </insert>
+    <update id="updateArticle" parameterType="Article">
+        update article SET edit_time = #{editTime},content = #{content},
+        out_visible = #{outVisible}
+        WHERE user_id = #{userId} and edit_time = #{lastEditTime}
+    </update>
+
+    <update id="updatePermission">
+        update article SET out_visible = #{outVisible}
+        WHERE user_id = #{userId} and edit_time = #{editTime}
+    </update>
+
+</mapper>

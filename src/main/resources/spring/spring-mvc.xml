@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+    <!--1.开启SpringMvc的注解模式
+    2.提供一系列的支持，支持日期format xml json的默认支持-->
+    <mvc:annotation-driven/>
+
+    <!--静态资源配置
+    1.加入静态资源的处理
+    2.允许使用／做整体映射-->
+    <mvc:default-servlet-handler/>
+
+
+    <context:component-scan base-package="org.miko.controller"/>
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--<bean id="multipartResolver"-->
+          <!--class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+
+        <!--&lt;!&ndash; one of the properties available; the maximum file size in bytes  &ndash;&gt;-->
+        <!--&lt;!&ndash; 10mb &ndash;&gt;-->
+        <!--<property name="maxUploadSize" value="100000000"/>-->
+        <!--<property name="defaultEncoding" value="UTF-8"/>-->
+    <!--</bean>-->
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activityList>
+    <activity
+            extend="BaseActivity"
+            name="FirstActivity"
+            title="试剂管理平台">
+        <BaseView
+                margin_right="100"
+                background="#ba0001"
+                id="test"
+                height="200"
+                width="200"
+                align_right="parent"/>
+        <BaseView
+                below_of = "test"
+                margin_top = "300"
+                align_left = "test"
+                background="#ba0001"
+                id="test1"
+                height="100"
+                width="150"/>
+
+
+        <click
+                extraMsg="adfadfad"
+                intent="show_toast"
+                action="short"
+                responseViewId="test"
+                relatedViewIds=""/>
+
+    </activity>
+
+</activityList>
