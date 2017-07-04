@@ -1,7 +1,10 @@
 package org.miko.controller;
 
+import com.sun.tools.corba.se.idl.StringGen;
+import org.miko.Config.Config;
 import org.miko.dto.LoginExcution;
 import org.miko.dto.Result;
+import org.miko.enums.LoginStateEnum;
 import org.miko.service.UserLoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,20 +34,17 @@ public class LoginController {
     @RequestMapping(value = "/login",
             method = RequestMethod.POST,
             produces = {"application/json;charset=UTF-8"})
-    LoginExcution login(@RequestParam("userName") String userName, @RequestParam("password") String password) {
-        LoginExcution loginExcution = service.login(userName, password);
+    LoginExcution loginByAccount(@RequestParam("type") String type,
+                                 @RequestParam("account") String account) {
 
-        return loginExcution;
+        String id = service.getIdByAccount(type, account);
+
+        int loginState = LoginStateEnum.ID_HAD_CREATE.getState();
+
+        if (id.equals(Config.anAccount)) {
+            id = service.addIdByAccount(type, account);
+            loginState = LoginStateEnum.CREATE_NEW_ID.getState();
+        }
+        return new LoginExcution(id, loginState);
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/phone_login",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
-    LoginExcution phoneLogin(@RequestParam("phone") String phone) {
-        LoginExcution loginExcution = service.login(phone);
-        return loginExcution;
-    }
-
-
 }

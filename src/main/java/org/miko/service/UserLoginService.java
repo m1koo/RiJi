@@ -9,8 +9,8 @@ import org.miko.entity.UserLoginMsg;
  * Created by Miko on 2017/3/6.
  */
 public interface UserLoginService {
-    UserLoginMsg findUserById(long id);
-    LoginExcution login(String phone);
-
-    LoginExcution login(String userName, String password);
+    /**根据不同的账号查找id*/
+    String getIdByAccount(String type,String account);
+    /**添加新的id并返回id*/
+    String addIdByAccount(String type,String account);
 }

@@ -5,9 +5,8 @@ package org.miko.enums;
  * Created by Miko on 2017/2/27.
  */
 public enum LoginStateEnum {
-    SUCCESS(1,"登录成功"),
-    ERROR_PASSWORD(0,"密码错误"),
-    NO_USER(-1,"用户不存在"),
+    ID_HAD_CREATE(1,"用户已存在"),
+    CREATE_NEW_ID(0,"新建用户"),
     INNER_ERROR(-2,"系统异常");
     private int state;
     private String stateInfo;

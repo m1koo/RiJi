@@ -7,12 +7,10 @@ import org.miko.entity.UserLoginMsg;
  * Created by Miko on 2017/3/6.
  */
 public interface UserLoginDao {
-    UserLoginMsg searchUserById(long userId);
 
-    UserLoginMsg searchUserByPhone(String phone);
 
-    void updatePassword(@Param("userId") long userId,@Param("password") String password);
+    String searchUserByType(@Param("type") String type,@Param("account") String account);
 
-    void insertUserLoginMsg(@Param("phone") String phone
-            , @Param("password") String password);
+    void insertUserLoginMsg(@Param("type") String type
+            , @Param("account") String account);
 }

@@ -3,19 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.miko.dao.UserLoginDao">
-    <update id="updatePassword">
-        update user_login SET password = #{password} where user_id = #{userId}
-    </update>
-    <select id="searchUserByPhone" resultType="UserLoginMsg">
-        SELECT password,user_id FROM user_login where phone = #{phone}
+
+    <select id="searchUserByType" resultType="String">
+        SELECT user_id FROM user_login where ${type} = #{account}
     </select>
 
-    <select id="searchUserById" resultType="UserLoginMsg">
-        SELECT password,user_id FROM user_login where user_id = #{userId}
-    </select>
-
-    <insert id="insertUserLoginMsg">
-        INSERT INTO user_login(phone,password) values (#{phone},#{password});
+    <insert id="insertUserLoginMsg"  statementType="CALLABLE">
+        INSERT INTO user_login(${type}) values (#{account});
     </insert>
 
 </mapper>

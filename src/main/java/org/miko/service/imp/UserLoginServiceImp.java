@@ -1,5 +1,6 @@
 package org.miko.service.imp;
 
+import org.miko.Config.Config;
 import org.miko.dao.UserLoginDao;
 import org.miko.dto.LoginExcution;
 import org.miko.dto.RegisterExcution;
@@ -20,56 +21,17 @@ public class UserLoginServiceImp implements UserLoginService {
     @Autowired
     UserLoginDao userLoginDao;
 
-    public UserLoginMsg findUserById(long id) {
-        return userLoginDao.searchUserById(id);
-    }
-
-    /**
-     * 用于混淆md5
-     */
-    private final String slat = "rewrljlsfjkaetb" +
-            ",jdauef)(**)^$#@@!!#%%63sdfad,%^$^&^*&*jsfahsdfafhadsfadksf";
-
-    private String getMd5(long userId) {
-        String base = userId + "/" + slat;
-        String md5 = org.springframework.util.DigestUtils
-                .md5DigestAsHex(base.getBytes());
-        return md5;
-    }
-
-    public LoginExcution login(String phone) {
-        LoginExcution loginExcution;
-
-        UserLoginMsg userLoginMsg = null;
-        userLoginMsg = userLoginDao.searchUserByPhone(phone);
-
-        loginExcution = new LoginExcution(LoginStateEnum.SUCCESS.getState(),
-                LoginStateEnum.SUCCESS.getStateInfo(), getMd5(userLoginMsg.getUserId()));
-        return loginExcution;
-    }
-
-    public LoginExcution login(String userName, String password) {
-        LoginExcution loginExcution;
-
-        UserLoginMsg userLoginMsg = null;
-        if (userName.length() == 11) {
-            userLoginMsg = userLoginDao.searchUserByPhone(userName);
+    public String getIdByAccount(String type, String account) {
+        String id = userLoginDao.searchUserByType(type, account);
+        if (id == null) {
+            id = Config.anAccount;
         }
-        if (userLoginMsg == null) {
-            loginExcution = new LoginExcution(LoginStateEnum.NO_USER.getState(),
-                    LoginStateEnum.NO_USER.getStateInfo());
-            return loginExcution;
-        } else {
-            //登录成功
-            if (userLoginMsg.getPassword().equals(password)) {
-                loginExcution = new LoginExcution(LoginStateEnum.SUCCESS.getState(),
-                        LoginStateEnum.SUCCESS.getStateInfo(), getMd5(userLoginMsg.getUserId()));
-                return loginExcution;
-            } else {
-                loginExcution = new LoginExcution(LoginStateEnum.ERROR_PASSWORD.getState(),
-                        LoginStateEnum.ERROR_PASSWORD.getStateInfo());
-                return loginExcution;
-            }
-        }
+        return id;
+    }
+
+    public String addIdByAccount(String type, String account) {
+        userLoginDao.insertUserLoginMsg(type, account);
+        String id = userLoginDao.searchUserByType(type, account);
+        return id;
     }
 }
