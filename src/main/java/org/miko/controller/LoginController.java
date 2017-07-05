@@ -1,5 +1,6 @@
 package org.miko.controller;
 
+import com.google.gson.Gson;
 import com.sun.tools.corba.se.idl.StringGen;
 import org.miko.Config.Config;
 import org.miko.dto.LoginExcution;
@@ -32,9 +33,8 @@ public class LoginController {
 
     @ResponseBody
     @RequestMapping(value = "/login",
-            method = RequestMethod.POST,
-            produces = {"application/json;charset=UTF-8"})
-    LoginExcution loginByAccount(@RequestParam("type") String type,
+            method = RequestMethod.POST)
+    String loginByAccount(@RequestParam("type") String type,
                                  @RequestParam("account") String account) {
 
         String id = service.getIdByAccount(type, account);
@@ -45,6 +45,9 @@ public class LoginController {
             id = service.addIdByAccount(type, account);
             loginState = LoginStateEnum.CREATE_NEW_ID.getState();
         }
-        return new LoginExcution(id, loginState);
+
+        LoginExcution e = new LoginExcution(id, loginState);
+
+        return new Gson().toJson(e);
     }
 }
