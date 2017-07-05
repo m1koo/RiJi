@@ -12,4 +12,28 @@ public class LoginExcution {
         this.id = id;
         this.state = state;
     }
+
+    @Override
+    public String toString() {
+        return "LoginExcution{" +
+                "id='" + id + '\'' +
+                ", state=" + state +
+                '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 }
