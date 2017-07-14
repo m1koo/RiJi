@@ -4,13 +4,25 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>登录</title>
+    <title>北大</title>
 </head>
-<body>
-<form action="upload" method="POST">
-    <input type="text" name="a"/>
+<style type="text/css">
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
 
-    <input type="submit" value="上传"/>
-</form>
+    .d1 {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+</style>
+<body>
+<div class="d1"><img src="合作证明.jpg" width="100%" height="100%"/></div>
+<div style="width:600px;height:600px"></div>
 </body>
 </html>
