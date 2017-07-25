@@ -1,8 +1,6 @@
 package org.miko.controller;
 
-import com.google.gson.Gson;
 import org.miko.Utils.Utils;
-import org.miko.entity.DiaryDetailBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,19 +22,9 @@ public class ArticleController {
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
-        String diaryJson = request.getParameter("diaryJson");
-
-        DiaryDetailBean diaryBean = new Gson().fromJson(diaryJson,DiaryDetailBean.class);
-
-        System.out.print(diaryBean.getId());
         for(MultipartFile f:myfiles){
 
-            File dir = new File("/home/riji");
-            if(!dir.exists()){
-                dir.mkdirs();
-            }
-
-//            Utils.copyFile(,"/home/riji");
+//            Utils.copyFile(f);
 
             System.out.println(f.getOriginalFilename());
         }
