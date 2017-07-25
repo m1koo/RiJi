@@ -19,9 +19,11 @@ public class ArticleController {
 
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(@RequestParam MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
+    public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
         for(MultipartFile f:myfiles){
+            System.out.println("new File");
+
             System.out.println(f.getName());
         }
 
