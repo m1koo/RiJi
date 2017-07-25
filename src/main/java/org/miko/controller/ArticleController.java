@@ -22,9 +22,8 @@ public class ArticleController {
     public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
         for(MultipartFile f:myfiles){
-            System.out.println("new File");
 
-            System.out.println(f.getName());
+            System.out.println(f.getOriginalFilename());
         }
 
         System.out.println(myfiles.length);
