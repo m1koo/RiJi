@@ -21,6 +21,9 @@ public class ArticleController {
     @ResponseBody
     public String upload(@RequestParam MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
+        for(MultipartFile f:myfiles){
+            System.out.println(f.getName());
+        }
 
         System.out.println(myfiles.length);
         System.out.println(request.getParameter("contentJson"));
