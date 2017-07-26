@@ -22,16 +22,13 @@ public class ArticleController {
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
-        for(MultipartFile f:myfiles){
-
+        for (MultipartFile f : myfiles) {
 //            Utils.copyFile(f);
-
             System.out.println(f.getOriginalFilename());
         }
 
-
         System.out.println(myfiles.length);
-        System.out.println(request.getParameter("contentJson"));
+        System.out.println(request.getParameter("diaryJson"));
 
         return "success";
     }
