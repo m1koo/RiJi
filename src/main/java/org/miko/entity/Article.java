@@ -6,55 +6,16 @@ import java.util.Date;
  * Created by Miko on 2017/3/7.
  */
 public class Article {
-    private long userId;
-    private String content;
+    private String userId;
+    private String articleId;
+    private int year;
+    private int month;
+    private int day;
     private long editTime;
-    private long lastEditTime;
+    private String location;
+    private String content;
     private boolean outVisible;
-
-    /**数据库搜索结果中只有一个editTime字段*/
-    public Article(Long userId, String content, Long editTime, Boolean outVisible) {
-        this.userId = userId;
-        this.content = content;
-        this.editTime = editTime;
-        this.outVisible = outVisible;
-    }
-
-    public Article(long userId, String content, long editTime
-            , long lastEditTime, boolean outVisible) {
-        this.userId = userId;
-        this.content = content;
-        this.editTime = editTime;
-        this.lastEditTime = lastEditTime;
-        this.outVisible = outVisible;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "userId=" + userId +
-                ", content='" + content + '\'' +
-                ", editTime=" + editTime +
-                ", lastEditTime=" + lastEditTime +
-                ", outVisible=" + outVisible +
-                '}';
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    private boolean completeFlag;
 
 
     public long getEditTime() {
@@ -65,19 +26,92 @@ public class Article {
         this.editTime = editTime;
     }
 
-    public long getLastEditTime() {
-        return lastEditTime;
-    }
-
-    public void setLastEditTime(long lastEditTime) {
-        this.lastEditTime = lastEditTime;
-    }
-
     public boolean isOutVisible() {
         return outVisible;
     }
 
     public void setOutVisible(boolean outVisible) {
         this.outVisible = outVisible;
+    }
+
+    public boolean isCompleteFlag() {
+        return completeFlag;
+    }
+
+    public void setCompleteFlag(boolean completeFlag) {
+        this.completeFlag = completeFlag;
+    }
+
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getArticleId() {
+        return articleId;
+    }
+
+    public void setArticleId(String articleId) {
+        this.articleId = articleId;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "userId='" + userId + '\'' +
+                ", articleId='" + articleId + '\'' +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", editTime=" + editTime +
+                ", location='" + location + '\'' +
+                ", content='" + content + '\'' +
+                ", outVisible=" + outVisible +
+                ", completeFlag=" + completeFlag +
+                '}';
     }
 }

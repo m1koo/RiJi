@@ -7,7 +7,8 @@ import org.miko.entity.Article;
 /**
  * Created by Miko on 2017/3/7.
  */
-public interface UploadArticleService {
-    UploadExcution uploadArticle(Article article);
-    UploadExcution updateArticle(Article article);
+public interface ArticleService {
+    String insertArticle(Article article);
+
+    Article searchArticle(String articleId);
 }

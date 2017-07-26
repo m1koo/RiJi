@@ -7,9 +7,7 @@ import org.miko.entity.Article;
  * Created by Miko on 2017/3/7.
  */
 public interface ArticleDao {
-    Article searchArticle(@Param("userId") long userId,@Param("editTime") long editTime);
+    Article searchArticle(@Param("articleId") String articleId);
     void insertArticle(Article article);
-    void updateArticle(Article article);
-    void updatePermission(@Param("userId") long userId,@Param("editTime") long editTime
-            ,@Param("outVisible") boolean outVisible);
+//    void updateArticle(Article article);
 }
