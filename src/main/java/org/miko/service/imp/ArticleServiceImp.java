@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Miko on 2017/3/7.
  */
-@Service("uploadService")
+@Service("articleService")
 public class ArticleServiceImp implements ArticleService {
 
 
