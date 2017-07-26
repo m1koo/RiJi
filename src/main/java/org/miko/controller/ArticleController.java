@@ -34,7 +34,7 @@ public class ArticleController {
         System.out.print(id);
 
 
-
+        boolean completeFlag = diaryObj.isCompleteFlag();
         int day = diaryObj.getDay();
         int month = diaryObj.getMonth();
         int year = diaryObj.getYear();
