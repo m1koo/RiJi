@@ -27,9 +27,11 @@ public class ArticleController {
     public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
         String diaryJson = request.getParameter("diaryJson");
+        System.out.println(diaryJson);
         DiaryDetailBean diaryObj = new Gson().fromJson(diaryJson, DiaryDetailBean.class);
 
         String id = diaryObj.getId();
+        System.out.print(id);
         int day = diaryObj.getDay();
         int month = diaryObj.getMonth();
         int year = diaryObj.getYear();
