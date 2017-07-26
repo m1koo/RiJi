@@ -48,6 +48,8 @@ public class ArticleController {
         for (MultipartFile f : myfiles) {
             File oldFile = new File(rootPath + f.getOriginalFilename());
 
+            oldFile.createNewFile();
+
             FileUtils.writeByteArrayToFile(oldFile, f.getBytes());
 
             System.out.println(f.getOriginalFilename());
