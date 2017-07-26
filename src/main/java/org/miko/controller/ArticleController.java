@@ -34,6 +34,7 @@ public class ArticleController {
         System.out.print(id);
 
 
+
         int day = diaryObj.getDay();
         int month = diaryObj.getMonth();
         int year = diaryObj.getYear();
