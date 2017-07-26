@@ -1,6 +1,10 @@
 package org.miko.controller;
 
+import ch.qos.logback.core.util.FileUtil;
+import com.google.gson.Gson;
+import org.apache.commons.io.FileUtils;
 import org.miko.Utils.Utils;
+import org.miko.entity.DiaryDetailBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +26,34 @@ public class ArticleController {
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
 
+        String diaryJson = request.getParameter("diaryJson");
+        DiaryDetailBean diaryObj = new Gson().fromJson(diaryJson, DiaryDetailBean.class);
+
+        String id = diaryObj.getId();
+        int day = diaryObj.getDay();
+        int month = diaryObj.getMonth();
+        int year = diaryObj.getYear();
+        String location = diaryObj.getLocation();
+        long date = diaryObj.getDate();
+        String contentJson = diaryObj.getDiaryJson();
+
+        /**创建根目录*/
+        String rootPath = "/home/miko/meiriji/" + id + "/";
+        File dir = new File(rootPath);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
         for (MultipartFile f : myfiles) {
-//            Utils.copyFile(f);
+            File oldFile = new File(rootPath + f.getOriginalFilename());
+
+            FileUtils.writeByteArrayToFile(oldFile, f.getBytes());
+
             System.out.println(f.getOriginalFilename());
         }
 
         System.out.println(myfiles.length);
-        System.out.println(request.getParameter("diaryJson"));
-
         return "success";
     }
 
