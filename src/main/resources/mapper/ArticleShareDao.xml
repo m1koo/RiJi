@@ -16,7 +16,7 @@
         where user_id = #{userId}
     </select>
     <insert id="insertArticleShare" parameterType="ArticleShare">
-        INSERT INTO article_shared(article_id,user_id,share_time,title)
+        INSERT ignore INTO article_shared(article_id,user_id,share_time,title)
          values (#{articleId},#{userId},#{shareTime},#{title});
     </insert>
     <!--<update id="updateArticle" parameterType="Article">-->
