@@ -85,7 +85,7 @@ public class ArticleController {
         /**将Diary的整体OBJ  DiaryJson -> Article -> db */
         service.insertArticle(diaryObj);
         if (isShare) {
-            System.out.println("???????");
+            System.out.println(title);
             share(id, title);
             return "no synchronize upload success";
         }
