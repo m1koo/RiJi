@@ -49,12 +49,11 @@ public class ArticleController {
     @RequestMapping(value = "/upload")
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile[] myfiles,
-                         @RequestParam(value = "isShare", required = false) boolean isShare,
-                         @RequestParam(value = "title", required = false) String title,
                          HttpServletRequest request) throws IOException {
 
         /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
+        String title = request.getParameter("title");
         /**转化为obj*/
         Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
 
@@ -84,7 +83,7 @@ public class ArticleController {
 
         /**将Diary的整体OBJ  DiaryJson -> Article -> db */
         service.insertArticle(diaryObj);
-        if (isShare) {
+        if (title != null && !title.equals("")) {
             System.out.println(title);
             share(id, title);
             return "no synchronize upload success";
