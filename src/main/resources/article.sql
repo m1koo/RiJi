@@ -13,3 +13,12 @@ CREATE TABLE `article` (
   `out_visible` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `article_shared` (
+  `article_id` varchar(40) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  `share_time` bigint(20) NOT NULL,
+  `title` varchar(100) not null,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

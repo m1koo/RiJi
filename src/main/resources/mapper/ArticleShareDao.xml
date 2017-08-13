@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.miko.dao.ArticleShareDao">
+    <select id="searchByArticleId" resultType="ArticleShare">
+        SELECT article_id,user_id,share_time,title
+        FROM article_shared
+        where article_id = #{articleId}
+    </select>
+
+
+    <select id="searchArticlesByUser" resultType="ArticleShare">
+        SELECT article_id,user_id,share_time,title
+        FROM article_shared
+        where user_id = #{userId}
+    </select>
+    <insert id="insertArticleShare" parameterType="ArticleShare">
+        INSERT INTO article_shared(article_id,user_id,share_time,title)
+         values (#{articleId},#{userId},#{shareTime},#{title});
+    </insert>
+    <!--<update id="updateArticle" parameterType="Article">-->
+    <!--update article SET edit_time = #{editTime},content = #{content},-->
+    <!--out_visible = #{outVisible}-->
+    <!--WHERE user_id = #{userId} and edit_time = #{lastEditTime}-->
+    <!--</update>-->
+
+</mapper>

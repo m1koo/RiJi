@@ -3,6 +3,7 @@ package org.miko.controller;
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
 import org.miko.entity.Article;
+import org.miko.entity.ArticleShare;
 import org.miko.service.ArticleService;
 import org.miko.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.Date;
 
 
 @Controller
@@ -25,11 +27,33 @@ public class ArticleController {
     @Qualifier("articleService")
     ArticleService service;
 
+
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile[] myfiles, HttpServletRequest request) throws IOException {
+    public String share(@RequestParam("articleId") String id, @RequestParam("title") String title) {
+        Article article = service.searchArticle(id);
+        if (article == null) {
+            return "NoArticle";
+        } else {
+            ArticleShare articleShare = new ArticleShare();
+            articleShare.setTitle(title);
+            articleShare.setUserId(id.split("_")[0]);
+            articleShare.setArticleId(id);
+            articleShare.setShareTime(new Date().getTime());
+            service.insertArticleShare(articleShare);
+            return "Success";
+        }
+    }
 
-        /**获取diary整体的Json*/
+
+    @RequestMapping(value = "/upload")
+    @ResponseBody
+    public String upload(@RequestParam("file") MultipartFile[] myfiles,
+                         @RequestParam(value = "isShare", required = false) boolean isShare,
+                         @RequestParam(value = "title", required = false) String title,
+                         HttpServletRequest request) throws IOException {
+
+        /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
         /**转化为obj*/
         Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
@@ -60,7 +84,10 @@ public class ArticleController {
 
         /**将Diary的整体OBJ  DiaryJson -> Article -> db */
         service.insertArticle(diaryObj);
-        return "success";
+        if (isShare) {
+            share(id, title);
+            return "no synchronize upload success";
+        }
+        return "upload success";
     }
-
 }

@@ -3,10 +3,13 @@ package org.miko.dao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.miko.entity.Article;
+import org.miko.entity.ArticleShare;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,29 +24,33 @@ public class ArticleDaoTest {
 
     //注入Dao实现类依赖
     @Resource
-    private ArticleDao dao;
+    private ArticleShareDao dao;
 
     @Test
     public void insert() throws Exception {
-        Article article = new Article();
-        article.setCompleteFlag(true);
-        article.setEditTime(2213414);
-        article.setYear(2014);
-        article.setMonth(12);
-        article.setDay(30);
-        article.setUserId("AN123");
-        article.setArticleId("AN123_rq33131141");
-        article.setLocation("123");
-        article.setOutVisible(true);
-        article.setContent("fafadfdafd");
-        dao.insertArticle(article);
+
+        ArticleShare articleShare = new ArticleShare();
+        articleShare.setArticleId("aaaaff");
+        articleShare.setUserId("eee");
+        articleShare.setShareTime(1111111);
+        articleShare.setTitle("gege");
+
+        dao.insertArticleShare(articleShare);
     }
 
     @Test
     /**测试当搜索不到时返回null*/
     public void search() throws Exception {
-        String articleId = "AN123_rq331341";
-        Article a = dao.searchArticle(articleId);
+        String articleId = "aaaa";
+        ArticleShare a = dao.searchByArticleId(articleId);
+        System.out.println(a.toString());
+    }
+
+    @Test
+    /**测试当搜索不到时返回null*/
+    public void searchu() throws Exception {
+        String userId = "eee";
+        List<ArticleShare> a = dao.searchArticlesByUser(userId);
         System.out.println(a.toString());
     }
 }
