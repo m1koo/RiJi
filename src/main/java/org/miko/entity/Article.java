@@ -12,7 +12,7 @@ public class Article {
     private int month;
     private int day;
     private long editTime;
-    private int location;
+    private String location;
     private String content;
     private boolean outVisible;
     private boolean completeFlag;
@@ -67,11 +67,11 @@ public class Article {
         this.day = day;
     }
 
-    public int getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(int location) {
+    public void setLocation(String location) {
         this.location = location;
     }
 
