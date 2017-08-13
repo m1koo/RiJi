@@ -28,7 +28,7 @@ public class ArticleController {
     ArticleService service;
 
 
-    @RequestMapping(value = "/upload")
+    @RequestMapping(value = "/share")
     @ResponseBody
     public String share(@RequestParam("articleId") String id, @RequestParam("title") String title) {
         Article article = service.searchArticle(id);
