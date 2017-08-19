@@ -26,7 +26,7 @@ CREATE TABLE `article_shared` (
 
 CREATE TABLE `user_article_push` (
   `user_id` varchar(20) NOT NULL,
-  `lastest_time` bigint(20) NOT NULL,
+  `last_time` bigint(20) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 

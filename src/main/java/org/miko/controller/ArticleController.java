@@ -124,6 +124,8 @@ public class ArticleController {
     public String upload(@RequestParam("file") MultipartFile[] myfiles,
                          HttpServletRequest request) throws IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
         String title = request.getParameter("title");
