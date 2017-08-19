@@ -2,8 +2,8 @@ package org.miko.controller;
 
 import com.google.gson.Gson;
 import org.apache.commons.io.FileUtils;
-import org.miko.entity.Article;
-import org.miko.entity.ArticleShare;
+import org.miko.entity.*;
+import org.miko.enums.ElementTypeEnum;
 import org.miko.service.ArticleService;
 import org.miko.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -43,6 +45,77 @@ public class ArticleController {
             service.insertArticleShare(articleShare);
             return "Success";
         }
+    }
+
+
+    @RequestMapping(value = "/push_articles")
+    @ResponseBody
+    public String push(@RequestParam("userId") String userId,
+                       @RequestParam("isRefresh") boolean isRefresh) {
+        List<ArticleShare> articleShares;
+
+        if (isRefresh) {
+            articleShares = service.getRefreshArticles(userId, 5);
+        } else {
+            articleShares = service.getNewestArticles(userId, 5);
+        }
+
+        ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
+        for (ArticleShare articleShare : articleShares) {
+
+            ArticleWorldBrief brief = new ArticleWorldBrief();
+
+            String articleId = articleShare.getArticleId();
+
+            /**作者的id*/
+            String authorId = articleShare.getUserId();
+
+            Article article = service.searchArticle(articleId);
+
+            String authorName = "miko";
+
+            /**获取的是分享的时间而不是文章编辑的时间*/
+            long shareTime = articleShare.getShareTime();
+
+            String content = article.getContent();
+
+            String title = articleShare.getTitle();
+
+            brief.setArticleId(articleId);
+            brief.setShareTime(shareTime);
+            brief.setUserId(authorId);
+            brief.setTitle(title);
+            brief.setUserName(authorName);
+
+            /**内容分析*/
+            ContentJson contentJsonBean = new Gson().fromJson(content, ContentJson.class);
+
+            StringBuilder sb = new StringBuilder();
+
+            StringBuilder previewPaths = new StringBuilder();
+
+            for (Element e : contentJsonBean.getElementList()) {
+                if (e.getElementType() == ElementTypeEnum.TEXT.getState()) {
+                    sb.append(e.getContent());
+                } else if (e.getElementType() == ElementTypeEnum.IMAGE.getState()) {
+                    previewPaths.append("image_" + e.getIndex() + " ");
+
+                } else if (e.getElementType() == ElementTypeEnum.GIF.getState()) {
+                    previewPaths.append("gif_" + e.getIndex() + " ");
+
+                } else if (e.getElementType() == ElementTypeEnum.VIDEO.getState()) {
+                    previewPaths.append("video_" + e.getIndex() + " ");
+                }
+            }
+
+            brief.setContent(sb.toString());
+            brief.setPreviewPaths(previewPaths.toString());
+            articleWorldBriefs.add(brief);
+        }
+        ArticleWorldBriefs articles = new ArticleWorldBriefs();
+        articles.setArticleWorldBriefs(articleWorldBriefs);
+
+        return new Gson().toJson(articles);
     }
 
 

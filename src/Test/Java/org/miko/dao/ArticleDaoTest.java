@@ -26,14 +26,26 @@ public class ArticleDaoTest {
     @Resource
     private ArticleShareDao dao;
 
+
+    @Test
+    public void searchArticle() throws Exception {
+//
+//        List<ArticleShare> articleShares = dao.searchArticlesByTime("eee",1111112,5);
+//
+//        for(ArticleShare a:articleShares){
+//            System.out.println(a);
+//        }
+    }
+
+
     @Test
     public void insert() throws Exception {
 
         ArticleShare articleShare = new ArticleShare();
-        articleShare.setArticleId("aaaaff");
+        articleShare.setArticleId("aafddfgadaaff");
         articleShare.setUserId("eee");
-        articleShare.setShareTime(1111111);
-        articleShare.setTitle("gege");
+        articleShare.setShareTime(11111111);
+        articleShare.setTitle("gjjjjjjjjege");
 
         dao.insertArticleShare(articleShare);
     }

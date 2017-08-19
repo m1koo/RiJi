@@ -16,4 +16,10 @@ public interface ArticleShareDao {
     List<ArticleShare> searchArticlesByUser(@Param("userId") String userId);
 
     void insertArticleShare(ArticleShare articleShare);
+
+    List<ArticleShare> getUnPushArticlesByTime(@Param("lastTime") long lastTime, @Param("maxNum") int maxNum);
+
+    List<ArticleShare> getUnPushArticlesByFilter(@Param("userId") String userId
+            , @Param("maxNum") int maxNum);
+
 }

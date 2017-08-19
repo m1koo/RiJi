@@ -22,3 +22,15 @@ CREATE TABLE `article_shared` (
   `title` varchar(100) not null,
   PRIMARY KEY (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+
+CREATE TABLE `user_article_push` (
+  `user_id` varchar(20) NOT NULL,
+  `lastest_time` bigint(20) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+CREATE TABLE `article_push` (
+  `user_id` varchar(20) NOT NULL,
+  `article_id` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

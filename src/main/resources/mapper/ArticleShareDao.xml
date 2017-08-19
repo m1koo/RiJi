@@ -9,11 +9,25 @@
         where article_id = #{articleId}
     </select>
 
-
     <select id="searchArticlesByUser" resultType="ArticleShare">
         SELECT article_id,user_id,share_time,title
         FROM article_shared
         where user_id = #{userId}
+    </select>
+
+    <select id="getUnPushArticlesByFilter" resultType="ArticleShare">
+        SELECT share.article_id,share.user_id,share.share_time,share.title
+        from article_shared share
+        left join article_push push
+        on share.article_id = push.article_id and push.user_id = #{userId}
+        WHERE push.article_id is null
+        order by share.share_time desc limit #{maxNum};
+    </select>
+    <select id="getUnPushArticlesByTime" resultType="ArticleShare">
+        SELECT article_id,user_id,share_time,title
+        FROM article_shared
+        where share_time > #{lastTime}
+        order by share_time desc limit #{maxNum}
     </select>
     <insert id="insertArticleShare" parameterType="ArticleShare">
         INSERT ignore INTO article_shared(article_id,user_id,share_time,title)
