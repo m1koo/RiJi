@@ -70,15 +70,16 @@ public class ArticleController {
 
         logger.info("articlesShares: "+articleShares);
         /**推送列表插入*/
-        if (articleShares != null) {
-            for (ArticleShare articleShare : articleShares) {
-                userRefreshService.insertArticle(userId,articleShare.getArticleId());
-            }
-            /**更新用户推送信息*/
-            userRefreshService.updateLastPushTime(userId,articleShares.get(0).getShareTime());
-        }
+//        if (articleShares != null) {
+//            for (ArticleShare articleShare : articleShares) {
+//                userRefreshService.insertArticle(userId,articleShare.getArticleId());
+//            }
+//            /**更新用户推送信息*/
+//            userRefreshService.updateLastPushTime(userId,articleShares.get(0).getShareTime());
+//        }
 
         ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
+        System.out.print("????");
         for (ArticleShare articleShare : articleShares) {
 
             ArticleWorldBrief brief = new ArticleWorldBrief();
