@@ -26,6 +26,24 @@ public class ArticleDaoTest {
     @Resource
     private ArticleShareDao dao;
 
+    @Resource
+    private ArticleDao articleDao;
+
+    @Test
+    public void insertArticle(){
+        Article article = new Article();
+        article.setEditTime(111);
+        article.setOutVisible(false);
+        article.setArticleId("fadf");
+        article.setContent("哈发发的");
+        article.setLocation("11");
+
+        article.setDay(1);
+        article.setMonth(1);
+        article.setYear(20189);
+        article.setUserId("fasdfdasfa");
+        articleDao.insertArticle(article);
+    }
 
     @Test
     public void searchArticle() throws Exception {

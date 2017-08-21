@@ -8,4 +8,7 @@
         FROM article_push
         where user_id = #{userId}
     </select>
+    <insert id="insertPushedArticle" >
+        insert into article_push(article_id,user_id) values (#{articleId},#{userId})
+    </insert>
 </mapper>

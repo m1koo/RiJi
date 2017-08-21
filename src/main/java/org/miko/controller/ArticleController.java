@@ -60,6 +60,12 @@ public class ArticleController {
             articleShares = service.getNewestArticles(userId, 5);
         }
 
+        if (articleShares != null) {
+            for (ArticleShare articleShare : articleShares) {
+
+            }
+        }
+
         ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
         for (ArticleShare articleShare : articleShares) {
 
