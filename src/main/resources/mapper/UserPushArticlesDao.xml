@@ -36,7 +36,7 @@
     </update>
 
     <insert id="insertUserPushArticle">
-        INSERT user_article_push (user_id,last_time) values(#{userId},#{last_time})
+        INSERT user_article_push (user_id,last_time) values(#{userId},#{lastTime})
     </insert>
 
 </mapper>
