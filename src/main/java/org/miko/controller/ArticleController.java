@@ -133,6 +133,9 @@ public class ArticleController {
         ArticleWorldBriefs articles = new ArticleWorldBriefs();
         articles.setArticleWorldBriefs(articleWorldBriefs);
 
+        logger.info("????????????????????");
+        logger.info(articles.toString());
+
         return new Gson().toJson(articles);
     }
 
