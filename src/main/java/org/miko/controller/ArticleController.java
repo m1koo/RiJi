@@ -7,6 +7,8 @@ import org.miko.enums.ElementTypeEnum;
 import org.miko.service.ArticleService;
 import org.miko.service.UserLoginService;
 import org.miko.service.UserRefreshService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.List;
 
 @Controller
 public class ArticleController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Autowired
@@ -64,6 +68,7 @@ public class ArticleController {
             articleShares = service.getNewestArticles(userId, 5);
         }
 
+        logger.info("articlesShares: "+articleShares);
         /**推送列表插入*/
         if (articleShares != null) {
             for (ArticleShare articleShare : articleShares) {
