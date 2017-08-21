@@ -31,5 +31,12 @@
         WHERE user.user_id = #{userId} and push.user_id = #{userId}
     </select>
 
+    <update id="updateUserPushArticles">
+        UPDATE user_article_push set last_time = #{lastTime} where user_id = #{userId}
+    </update>
+
+    <insert id="insertUserPushArticle">
+        INSERT user_article_push (user_id,last_time) values(#{userId},#{last_time})
+    </insert>
 
 </mapper>

@@ -6,6 +6,7 @@ import org.miko.entity.*;
 import org.miko.enums.ElementTypeEnum;
 import org.miko.service.ArticleService;
 import org.miko.service.UserLoginService;
+import org.miko.service.UserRefreshService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ public class ArticleController {
     @Qualifier("articleService")
     ArticleService service;
 
+    @Autowired
+    @Qualifier("userRefreshService")
+    UserRefreshService userRefreshService;
 
     @RequestMapping(value = "/share")
     @ResponseBody
@@ -60,10 +64,13 @@ public class ArticleController {
             articleShares = service.getNewestArticles(userId, 5);
         }
 
+        /**推送列表插入*/
         if (articleShares != null) {
             for (ArticleShare articleShare : articleShares) {
-
+                userRefreshService.insertArticle(userId,articleShare.getArticleId());
             }
+            /**更新用户推送信息*/
+            userRefreshService.updateLastPushTime(userId,articleShares.get(0).getShareTime());
         }
 
         ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();

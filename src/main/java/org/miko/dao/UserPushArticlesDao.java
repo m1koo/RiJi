@@ -8,6 +8,10 @@ import org.miko.entity.UserPushArticles;
  * Created by Miko on 2017/3/7.
  */
 public interface UserPushArticlesDao {
+
     UserPushArticles getUserPushArticles(@Param("userId") String userId);
 
+    void updateUserPushArticles(@Param("userId") String userId, @Param("lastTime") long lastTime);
+
+    void insertUserPushArticle(@Param("userId") String userId, @Param("lastTime") long lastTime);
 }

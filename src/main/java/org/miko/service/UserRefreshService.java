@@ -12,4 +12,5 @@ public interface UserRefreshService {
 
     String insertArticle(String userId, String articleId);
 
+    void updateLastPushTime(String userId,long time);
 }
