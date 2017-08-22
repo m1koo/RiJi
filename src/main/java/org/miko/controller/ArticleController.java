@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +61,7 @@ public class ArticleController {
     @RequestMapping(value = "/push_articles")
     @ResponseBody
     public String push(@RequestParam("userId") String userId,
-                       @RequestParam("isRefresh") boolean isRefresh) {
+                       @RequestParam("isRefresh") boolean isRefresh) throws UnsupportedEncodingException {
 
         List<ArticleShare> articleShares;
 
@@ -145,7 +146,8 @@ public class ArticleController {
         String returnStr = new Gson().toJson(articles);
 
         logger.info(returnStr);
-        return returnStr;
+        String returnStrEncode = URLEncoder.encode(returnStr,"UTF-8");
+        return returnStrEncode;
 
     }
 
