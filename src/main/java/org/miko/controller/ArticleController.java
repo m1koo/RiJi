@@ -76,7 +76,8 @@ public class ArticleController {
                     userRefreshService.insertArticle(userId, articleShare.getArticleId());
                 }
                 /**更新用户推送信息*/
-                userRefreshService.updateLastPushTime(userId, articleShares.get(0).getShareTime());
+                if (articleShares.size() > 0)
+                    userRefreshService.updateLastPushTime(userId, articleShares.get(0).getShareTime());
             }
 
             ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
@@ -136,7 +137,7 @@ public class ArticleController {
 
             return new Gson().toJson(articles);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.print(e);
             return e.getMessage();
         }
