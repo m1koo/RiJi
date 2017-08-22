@@ -106,7 +106,7 @@ public class ArticleController {
                 e.printStackTrace();
                 contentDecode = "服务器解码失败";
             }
-            System.out.println(contentDecode);
+            logger.info(contentDecode);
             String title = articleShare.getTitle();
 
             brief.setArticleId(articleId);
