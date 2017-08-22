@@ -107,7 +107,6 @@ public class ArticleController {
                 e.printStackTrace();
                 contentDecode = "服务器解码失败";
             }
-            logger.info(contentDecode);
             String title = articleShare.getTitle();
 
             brief.setArticleId(articleId);
@@ -145,13 +144,7 @@ public class ArticleController {
         articles.setArticleWorldBriefs(articleWorldBriefs);
         String returnStr = new Gson().toJson(articles);
 
-        logger.info("returnStr: "+returnStr);
-
         String returnStrEncode = URLEncoder.encode(returnStr, "UTF-8");
-
-
-        System.out.println("?????");
-        System.out.println(returnStr);
 
         return returnStrEncode;
 

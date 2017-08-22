@@ -30,7 +30,8 @@ public class UserRefreshServiceImp implements UserRefreshService {
         if (userPushArticles == null) {
             userPushArticlesDao.insertUserPushArticle(userId, time);
         } else {
-            userPushArticlesDao.updateUserPushArticles(userId, time);
+            if (userPushArticles.getLastTime() < time)
+                userPushArticlesDao.updateUserPushArticles(userId, time);
         }
     }
 

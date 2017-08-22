@@ -34,3 +34,10 @@ CREATE TABLE `article_push` (
   `user_id` varchar(20) NOT NULL,
   `article_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+SELECT share.article_id,share.user_id,share.share_time,share.title
+        from article_shared share
+        left join article_push push
+        on share.article_id = push.article_id and push.user_id = "AN12345"
+        WHERE push.article_id is null
+        order by share.share_time desc limit 5;
