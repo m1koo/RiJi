@@ -98,6 +98,8 @@ public class ArticleController {
 
             String content = article.getContent();
 
+            logger.info("content",content);
+            System.out.println(content);
             String title = articleShare.getTitle();
 
             brief.setArticleId(articleId);
