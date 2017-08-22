@@ -10,7 +10,7 @@
     </select>
 
     <insert id="insertArticle" parameterType="Article">
-        INSERT INTO article(article_id,user_id,edit_time,content,
+        INSERT ignore INTO article(article_id,user_id,edit_time,content,
         year,month,day,location,completeFlag,out_visible)
          values (#{articleId},#{userId},#{editTime},#{content},#{year},#{month}
          ,#{day},#{location},#{completeFlag},#{outVisible});
