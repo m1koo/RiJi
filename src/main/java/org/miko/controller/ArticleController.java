@@ -129,7 +129,6 @@ public class ArticleController {
                 }
             }
 
-            logger.info("content", sb.toString());
             brief.setContent(sb.toString());
             brief.setPreviewPaths(previewPaths.toString());
             articleWorldBriefs.add(brief);
