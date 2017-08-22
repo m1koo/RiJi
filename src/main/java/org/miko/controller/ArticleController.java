@@ -60,88 +60,84 @@ public class ArticleController {
     @ResponseBody
     public String push(@RequestParam("userId") String userId,
                        @RequestParam("isRefresh") boolean isRefresh) {
-        try {
-            List<ArticleShare> articleShares;
 
-            if (isRefresh) {
-                articleShares = service.getRefreshArticles(userId, 5);
-            } else {
-                articleShares = service.getNewestArticles(userId, 5);
-            }
+        List<ArticleShare> articleShares;
 
-            /**推送列表插入*/
-            if (articleShares != null) {
-                for (ArticleShare articleShare : articleShares) {
-                    userRefreshService.insertArticle(userId, articleShare.getArticleId());
-                }
-                /**更新用户推送信息*/
-                if (articleShares.size() > 0)
-                    userRefreshService.updateLastPushTime(userId, articleShares.get(0).getShareTime());
-            }
-
-            ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
-            for (ArticleShare articleShare : articleShares) {
-
-                ArticleWorldBrief brief = new ArticleWorldBrief();
-
-                String articleId = articleShare.getArticleId();
-
-                /**作者的id*/
-                String authorId = articleShare.getUserId();
-
-                Article article = service.searchArticle(articleId);
-
-                String authorName = "miko";
-
-                /**获取的是分享的时间而不是文章编辑的时间*/
-                long shareTime = articleShare.getShareTime();
-
-                String content = article.getContent();
-
-                String title = articleShare.getTitle();
-
-                brief.setArticleId(articleId);
-                brief.setShareTime(shareTime);
-                brief.setUserId(authorId);
-                brief.setTitle(title);
-                brief.setUserName(authorName);
-
-                /**内容分析*/
-                ContentJson contentJsonBean = new Gson().fromJson(content, ContentJson.class);
-
-                StringBuilder sb = new StringBuilder();
-
-                StringBuilder previewPaths = new StringBuilder();
-
-                for (Element e : contentJsonBean.getElementList()) {
-                    if (e.getElementType() == ElementTypeEnum.TEXT.getState()) {
-                        sb.append(e.getContent());
-                    } else if (e.getElementType() == ElementTypeEnum.IMAGE.getState()) {
-                        previewPaths.append("image_" + e.getIndex() + " ");
-
-                    } else if (e.getElementType() == ElementTypeEnum.GIF.getState()) {
-                        previewPaths.append("gif_" + e.getIndex() + " ");
-
-                    } else if (e.getElementType() == ElementTypeEnum.VIDEO.getState()) {
-                        previewPaths.append("video_" + e.getIndex() + " ");
-                    }
-                }
-
-                logger.info("content",sb.toString());
-                brief.setContent(sb.toString());
-                brief.setPreviewPaths(previewPaths.toString());
-                articleWorldBriefs.add(brief);
-                System.out.println(brief);
-            }
-            ArticleWorldBriefs articles = new ArticleWorldBriefs();
-            articles.setArticleWorldBriefs(articleWorldBriefs);
-
-            return new Gson().toJson(articles);
-
-        } catch (Exception e) {
-            System.out.print(e);
-            return e.getMessage();
+        if (isRefresh) {
+            articleShares = service.getRefreshArticles(userId, 5);
+        } else {
+            articleShares = service.getNewestArticles(userId, 5);
         }
+
+        /**推送列表插入*/
+        if (articleShares != null) {
+            for (ArticleShare articleShare : articleShares) {
+                userRefreshService.insertArticle(userId, articleShare.getArticleId());
+            }
+            /**更新用户推送信息*/
+            if (articleShares.size() > 0)
+                userRefreshService.updateLastPushTime(userId, articleShares.get(0).getShareTime());
+        }
+
+        ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
+        for (ArticleShare articleShare : articleShares) {
+
+            ArticleWorldBrief brief = new ArticleWorldBrief();
+
+            String articleId = articleShare.getArticleId();
+
+            /**作者的id*/
+            String authorId = articleShare.getUserId();
+
+            Article article = service.searchArticle(articleId);
+
+            String authorName = "miko";
+
+            /**获取的是分享的时间而不是文章编辑的时间*/
+            long shareTime = articleShare.getShareTime();
+
+            String content = article.getContent();
+
+            String title = articleShare.getTitle();
+
+            brief.setArticleId(articleId);
+            brief.setShareTime(shareTime);
+            brief.setUserId(authorId);
+            brief.setTitle(title);
+            brief.setUserName(authorName);
+
+            /**内容分析*/
+            ContentJson contentJsonBean = new Gson().fromJson(content, ContentJson.class);
+
+            StringBuilder sb = new StringBuilder();
+
+            StringBuilder previewPaths = new StringBuilder();
+
+            for (Element e : contentJsonBean.getElementList()) {
+                if (e.getElementType() == ElementTypeEnum.TEXT.getState()) {
+                    sb.append(e.getContent());
+                } else if (e.getElementType() == ElementTypeEnum.IMAGE.getState()) {
+                    previewPaths.append("image_" + e.getIndex() + " ");
+
+                } else if (e.getElementType() == ElementTypeEnum.GIF.getState()) {
+                    previewPaths.append("gif_" + e.getIndex() + " ");
+
+                } else if (e.getElementType() == ElementTypeEnum.VIDEO.getState()) {
+                    previewPaths.append("video_" + e.getIndex() + " ");
+                }
+            }
+
+            logger.info("content", sb.toString());
+            brief.setContent(sb.toString());
+            brief.setPreviewPaths(previewPaths.toString());
+            articleWorldBriefs.add(brief);
+            System.out.println(brief);
+        }
+        ArticleWorldBriefs articles = new ArticleWorldBriefs();
+        articles.setArticleWorldBriefs(articleWorldBriefs);
+
+        return new Gson().toJson(articles);
+
     }
 
 
