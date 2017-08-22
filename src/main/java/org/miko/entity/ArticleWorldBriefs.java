@@ -8,6 +8,13 @@ import java.util.ArrayList;
 public class ArticleWorldBriefs {
     private ArrayList<ArticleWorldBrief> articleWorldBriefs;
 
+    @Override
+    public String toString() {
+        return "ArticleWorldBriefs{" +
+                "articleWorldBriefs=" + articleWorldBriefs +
+                '}';
+    }
+
     public ArrayList<ArticleWorldBrief> getArticleWorldBriefs() {
         return articleWorldBriefs;
     }

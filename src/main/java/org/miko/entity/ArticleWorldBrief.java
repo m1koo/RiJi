@@ -12,6 +12,19 @@ public class ArticleWorldBrief {
     private String title;
     private String previewPaths;
 
+    @Override
+    public String toString() {
+        return "ArticleWorldBrief{" +
+                "userName='" + userName + '\'' +
+                ", userId='" + userId + '\'' +
+                ", articleId='" + articleId + '\'' +
+                ", shareTime=" + shareTime +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", previewPaths='" + previewPaths + '\'' +
+                '}';
+    }
+
     public String getPreviewPaths() {
         return previewPaths;
     }
