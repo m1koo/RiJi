@@ -152,7 +152,7 @@ public class ArticleController {
         /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
 
-        System.out.println(diaryJson);
+        logger.info("diaryJsonPost",diaryJson);
         String title = request.getParameter("title");
         /**转化为obj*/
         Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
