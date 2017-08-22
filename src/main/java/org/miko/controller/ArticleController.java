@@ -145,8 +145,14 @@ public class ArticleController {
         articles.setArticleWorldBriefs(articleWorldBriefs);
         String returnStr = new Gson().toJson(articles);
 
-        logger.info(returnStr);
-        String returnStrEncode = URLEncoder.encode(returnStr,"UTF-8");
+        logger.info("returnStr: "+returnStr);
+
+        String returnStrEncode = URLEncoder.encode(returnStr, "UTF-8");
+
+
+        System.out.println("?????");
+        System.out.println(returnStr);
+
         return returnStrEncode;
 
     }
