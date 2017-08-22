@@ -139,12 +139,13 @@ public class ArticleController {
             brief.setContent(sb.toString());
             brief.setPreviewPaths(previewPaths.toString());
             articleWorldBriefs.add(brief);
-            System.out.println(brief);
         }
         ArticleWorldBriefs articles = new ArticleWorldBriefs();
         articles.setArticleWorldBriefs(articleWorldBriefs);
+        String returnStr = new Gson().toJson(articles);
 
-        return new Gson().toJson(articles);
+        logger.info(returnStr);
+        return returnStr;
 
     }
 
