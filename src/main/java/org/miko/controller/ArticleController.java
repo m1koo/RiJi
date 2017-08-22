@@ -69,7 +69,6 @@ public class ArticleController {
                 articleShares = service.getNewestArticles(userId, 5);
             }
 
-            logger.info("articlesShares: " + articleShares);
             /**推送列表插入*/
             if (articleShares != null) {
                 for (ArticleShare articleShare : articleShares) {
@@ -131,6 +130,7 @@ public class ArticleController {
                 brief.setContent(sb.toString());
                 brief.setPreviewPaths(previewPaths.toString());
                 articleWorldBriefs.add(brief);
+                System.out.println(brief);
             }
             ArticleWorldBriefs articles = new ArticleWorldBriefs();
             articles.setArticleWorldBriefs(articleWorldBriefs);
