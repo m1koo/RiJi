@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -98,8 +99,14 @@ public class ArticleController {
 
             String content = article.getContent();
 
-            logger.info("content",content);
-            System.out.println(content);
+            String contentDecode = null;
+            try {
+                contentDecode = URLDecoder.decode(content, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                contentDecode = "服务器解码失败";
+            }
+            System.out.println(contentDecode);
             String title = articleShare.getTitle();
 
             brief.setArticleId(articleId);
@@ -152,7 +159,7 @@ public class ArticleController {
         /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
 
-        logger.info("diaryJsonPost",diaryJson);
+        logger.info("diaryJsonPost", diaryJson);
         String title = request.getParameter("title");
         /**转化为obj*/
         Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
