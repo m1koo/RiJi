@@ -116,7 +116,7 @@ public class ArticleController {
             brief.setUserName(authorName);
 
             /**内容分析*/
-            ContentJson contentJsonBean = new Gson().fromJson(content, ContentJson.class);
+            ContentJson contentJsonBean = new Gson().fromJson(contentDecode, ContentJson.class);
 
             StringBuilder sb = new StringBuilder();
 
