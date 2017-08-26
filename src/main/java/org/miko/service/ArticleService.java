@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface ArticleService {
 
+    List<String> getUserAllArticles(String userId);
+
     String insertArticle(Article article);
 
     String insertArticleShare(ArticleShare articleShare);

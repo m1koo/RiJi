@@ -30,7 +30,7 @@ public class ArticleDaoTest {
     private ArticleDao articleDao;
 
     @Test
-    public void insertArticle(){
+    public void insertArticle() {
         Article article = new Article();
         article.setEditTime(111);
         article.setOutVisible(false);
@@ -47,12 +47,12 @@ public class ArticleDaoTest {
 
     @Test
     public void searchArticle() throws Exception {
-//
-//        List<ArticleShare> articleShares = dao.searchArticlesByTime("eee",1111112,5);
-//
-//        for(ArticleShare a:articleShares){
-//            System.out.println(a);
-//        }
+
+        List<String> articleShares = articleDao.searchAllArticleIds("AN123");
+
+        for(String a:articleShares){
+            System.out.println(a);
+        }
     }
 
 

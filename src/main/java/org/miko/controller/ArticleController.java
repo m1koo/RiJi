@@ -19,11 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -39,6 +38,48 @@ public class ArticleController {
     @Autowired
     @Qualifier("userRefreshService")
     UserRefreshService userRefreshService;
+
+    @RequestMapping(value = "/syn")
+    @ResponseBody
+    public String syn(HttpServletRequest request) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        /**获s取diary整体的Json*/
+        String articles = request.getParameter("articles");
+        String userId = request.getParameter("userId");
+
+        String[] articleArray = articles.split(" ");
+        ArrayList<String> localArticles = (ArrayList<String>) Arrays.asList(articleArray);
+
+        ArrayList<String> localArticlesTemp = new ArrayList<String>();
+
+        localArticlesTemp.addAll(localArticles);
+
+        ArrayList<String> serviceArticles = (ArrayList<String>) service.getUserAllArticles(userId);
+
+        /**差集*/
+        localArticles.removeAll(serviceArticles);
+
+        serviceArticles.removeAll(localArticlesTemp);
+
+        ArticleSynBean articleSynBean = new ArticleSynBean();
+
+        ArrayList<Article> downloadArticles = new ArrayList<Article>();
+        for (String articleId : serviceArticles) {
+            Article article = service.searchArticle(articleId);
+            downloadArticles.add(article);
+        }
+
+        articleSynBean.setDownloadArticles(downloadArticles);
+        articleSynBean.setPrepareUploadArticleIds(localArticles);
+
+        String returnStr = new Gson().toJson(articleSynBean);
+
+        logger.info(returnStr);
+
+        return returnStr;
+    }
 
     @RequestMapping(value = "/share")
     @ResponseBody

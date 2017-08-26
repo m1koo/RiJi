@@ -41,6 +41,10 @@ public class ArticleServiceImp implements ArticleService {
         return "success";
     }
 
+    public List<String> getUserAllArticles(String userId) {
+        return articleDao.searchAllArticleIds(userId);
+    }
+
     public String insertArticle(Article article) {
         articleDao.insertArticle(article);
 
