@@ -6,15 +6,15 @@ import java.util.ArrayList;
  * Created by Miko on 2017/8/26.
  */
 public class ArticleSynBean {
-    ArrayList<Article> downloadArticles;
+    ArrayList<String> prepareDownloadArticleIds;
     ArrayList<String> prepareUploadArticleIds;
 
-    public ArrayList<Article> getDownloadArticles() {
-        return downloadArticles;
+    public ArrayList<String> getPrepareDownloadArticleIds() {
+        return prepareDownloadArticleIds;
     }
 
-    public void setDownloadArticles(ArrayList<Article> downloadArticles) {
-        this.downloadArticles = downloadArticles;
+    public void setPrepareDownloadArticleIds(ArrayList<String> prepareDownloadArticleIds) {
+        this.prepareDownloadArticleIds = prepareDownloadArticleIds;
     }
 
     public ArrayList<String> getPrepareUploadArticleIds() {

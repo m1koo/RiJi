@@ -65,13 +65,7 @@ public class ArticleController {
 
         ArticleSynBean articleSynBean = new ArticleSynBean();
 
-        ArrayList<Article> downloadArticles = new ArrayList<Article>();
-        for (String articleId : serviceArticles) {
-            Article article = service.searchArticle(articleId);
-            downloadArticles.add(article);
-        }
-
-        articleSynBean.setDownloadArticles(downloadArticles);
+        articleSynBean.setPrepareDownloadArticleIds(serviceArticles);
         articleSynBean.setPrepareUploadArticleIds(localArticles);
 
         String returnStr = new Gson().toJson(articleSynBean);
