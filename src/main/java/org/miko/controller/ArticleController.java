@@ -45,6 +45,8 @@ public class ArticleController {
 
         request.setCharacterEncoding("UTF-8");
 
+        logger.info("syn","syn");
+
         /**获s取diary整体的Json*/
         String articles = request.getParameter("articles");
         String userId = request.getParameter("userId");
