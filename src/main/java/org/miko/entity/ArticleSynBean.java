@@ -1,27 +1,28 @@
 package org.miko.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Miko on 2017/8/26.
  */
 public class ArticleSynBean {
-    ArrayList<String> prepareDownloadArticleIds;
-    ArrayList<String> prepareUploadArticleIds;
+    List<String> prepareDownloadArticleIds;
+    List<String> prepareUploadArticleIds;
 
-    public ArrayList<String> getPrepareDownloadArticleIds() {
+    public List<String> getPrepareDownloadArticleIds() {
         return prepareDownloadArticleIds;
     }
 
-    public void setPrepareDownloadArticleIds(ArrayList<String> prepareDownloadArticleIds) {
+    public void setPrepareDownloadArticleIds(List<String> prepareDownloadArticleIds) {
         this.prepareDownloadArticleIds = prepareDownloadArticleIds;
     }
 
-    public ArrayList<String> getPrepareUploadArticleIds() {
+    public List<String> getPrepareUploadArticleIds() {
         return prepareUploadArticleIds;
     }
 
-    public void setPrepareUploadArticleIds(ArrayList<String> prepareUploadArticleIds) {
+    public void setPrepareUploadArticleIds(List<String> prepareUploadArticleIds) {
         this.prepareUploadArticleIds = prepareUploadArticleIds;
     }
 }

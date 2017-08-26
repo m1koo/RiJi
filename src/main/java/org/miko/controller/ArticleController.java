@@ -52,13 +52,13 @@ public class ArticleController {
         String userId = request.getParameter("userId");
 
         String[] articleArray = articles.split(" ");
-        ArrayList<String> localArticles = (ArrayList<String>) Arrays.asList(articleArray);
+        List<String> localArticles =  Arrays.asList(articleArray);
 
-        ArrayList<String> localArticlesTemp = new ArrayList<String>();
+        List<String> localArticlesTemp = new ArrayList<String>();
 
         localArticlesTemp.addAll(localArticles);
 
-        ArrayList<String> serviceArticles = (ArrayList<String>) service.getUserAllArticles(userId);
+        List<String> serviceArticles =  service.getUserAllArticles(userId);
 
         /**差集*/
         localArticles.removeAll(serviceArticles);
