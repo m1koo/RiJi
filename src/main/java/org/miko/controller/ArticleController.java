@@ -52,7 +52,9 @@ public class ArticleController {
         String userId = request.getParameter("userId");
 
         String[] articleArray = articles.split(" ");
-        List<String> localArticles =  Arrays.asList(articleArray);
+
+        List<String> localArticles = new ArrayList<String>();
+        localArticles.addAll(Arrays.asList(articleArray));
 
         List<String> localArticlesTemp = new ArrayList<String>();
 
