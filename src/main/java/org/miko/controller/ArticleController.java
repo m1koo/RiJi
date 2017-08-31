@@ -50,6 +50,7 @@ public class ArticleController {
         String a = new Gson().toJson(article);
 
         return a;
+
     }
 
     @RequestMapping(value = "/syn")
