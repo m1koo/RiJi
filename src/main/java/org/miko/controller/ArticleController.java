@@ -43,6 +43,7 @@ public class ArticleController {
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
         request.setCharacterEncoding("UTF-8");
+
         String articleId = request.getParameter("articleId");
 
         Article article = service.searchArticle(articleId);
