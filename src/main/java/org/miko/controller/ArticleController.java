@@ -39,28 +39,45 @@ public class ArticleController {
     @Qualifier("userRefreshService")
     UserRefreshService userRefreshService;
 
+    @RequestMapping(value = "/get_article")
+    @ResponseBody
+    public String getArticle(HttpServletRequest request) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        String articleId = request.getParameter("articleId");
+
+        Article article = service.searchArticle(articleId);
+
+        String a = new Gson().toJson(article);
+
+        return a;
+    }
+
     @RequestMapping(value = "/syn")
     @ResponseBody
     public String syn(HttpServletRequest request) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
 
-        logger.info("syn","syn");
+        logger.info("syn", "syn");
 
         /**获s取diary整体的Json*/
         String articles = request.getParameter("articles");
+
         String userId = request.getParameter("userId");
 
         String[] articleArray = articles.split(" ");
 
         List<String> localArticles = new ArrayList<String>();
+
         localArticles.addAll(Arrays.asList(articleArray));
 
         List<String> localArticlesTemp = new ArrayList<String>();
 
         localArticlesTemp.addAll(localArticles);
 
-        List<String> serviceArticles =  service.getUserAllArticles(userId);
+        List<String> serviceArticles = service.getUserAllArticles(userId);
 
         /**差集*/
         localArticles.removeAll(serviceArticles);
@@ -70,6 +87,7 @@ public class ArticleController {
         ArticleSynBean articleSynBean = new ArticleSynBean();
 
         articleSynBean.setPrepareDownloadArticleIds(serviceArticles);
+
         articleSynBean.setPrepareUploadArticleIds(localArticles);
 
         String returnStr = new Gson().toJson(articleSynBean);
