@@ -19,9 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.*;
 
 
@@ -43,6 +40,7 @@ public class ArticleController {
     @RequestMapping(value = "/get_article")
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
+
         request.setCharacterEncoding("UTF-8");
         String articleId = request.getParameter("articleId");
 
@@ -155,15 +153,8 @@ public class ArticleController {
             /**获取的是分享的时间而不是文章编辑的时间*/
             long shareTime = articleShare.getShareTime();
 
-            String content = article.getContent();
+            String contentDecode = article.getContent();
 
-            String contentDecode = null;
-            try {
-                contentDecode = URLDecoder.decode(content, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                contentDecode = "服务器解码失败";
-            }
             String title = articleShare.getTitle();
 
             brief.setArticleId(articleId);
@@ -201,9 +192,7 @@ public class ArticleController {
         articles.setArticleWorldBriefs(articleWorldBriefs);
         String returnStr = new Gson().toJson(articles);
 
-        String returnStrEncode = URLEncoder.encode(returnStr, "UTF-8");
-
-        return returnStrEncode;
+        return returnStr;
 
     }
 
@@ -238,19 +227,15 @@ public class ArticleController {
         for (MultipartFile f : myfiles) {
             File oldFile = new File(rootPath + f.getOriginalFilename());
 
-            System.out.print(rootPath + f.getOriginalFilename());
-
             oldFile.createNewFile();
 
             FileUtils.writeByteArrayToFile(oldFile, f.getBytes());
 
-            System.out.println(f.getOriginalFilename());
         }
 
         /**将Diary的整体OBJ  DiaryJson -> Article -> db */
         service.insertArticle(diaryObj);
         if (title != null && !title.equals("")) {
-            System.out.println(title);
             share(id, title);
             return "no synchronize upload success";
         }
