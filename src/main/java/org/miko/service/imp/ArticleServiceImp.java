@@ -51,6 +51,7 @@ public class ArticleServiceImp implements ArticleService {
         return articleDao.searchAllArticleIds(userId);
     }
 
+    /**myslsql不支持emoji 使用转码*/
     public String insertArticle(Article article) {
 
         String unEncodeContent = article.getContent();
@@ -80,12 +81,15 @@ public class ArticleServiceImp implements ArticleService {
         UserPushArticles userPushArticlesInfo = userPushArticlesDao
                 .getUserPushArticles(userId);
         /**如果为null则说明为新用户还未曾推送，则直接推送指定数目的文章*/
+        List<ArticleShare> articleShareList = null;
         if (userPushArticlesInfo == null) {
-            return articleShareDao.getUnPushArticlesByTime(0, maxNum);
+            articleShareList = articleShareDao.getUnPushArticlesByTime(0, maxNum);
         } else {
-            return articleShareDao.getUnPushArticlesByTime(userPushArticlesInfo.getLastTime(),
+            articleShareList = articleShareDao.getUnPushArticlesByTime(userPushArticlesInfo.getLastTime(),
                     maxNum);
         }
+
+        return articleShareList;
     }
 
     public List<ArticleShare> getRefreshArticles(String userId, int maxNum) {

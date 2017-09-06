@@ -1,6 +1,7 @@
 package org.miko.controller;
 
 import com.google.gson.Gson;
+import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.io.FileUtils;
 import org.miko.entity.*;
 import org.miko.enums.ElementTypeEnum;
@@ -37,7 +38,7 @@ public class ArticleController {
     @Qualifier("userRefreshService")
     UserRefreshService userRefreshService;
 
-    @RequestMapping(value = "/get_article",produces="text/plain;charset=UTF-8")
+    @RequestMapping(value = "/get_article", produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
 
@@ -157,10 +158,11 @@ public class ArticleController {
 
             String title = articleShare.getTitle();
 
+            String decodeTitle = EmojiParser.parseToUnicode(title);
             brief.setArticleId(articleId);
             brief.setShareTime(shareTime);
             brief.setUserId(authorId);
-            brief.setTitle(title);
+            brief.setTitle(decodeTitle);
             brief.setUserName(authorName);
 
             /**内容分析*/
