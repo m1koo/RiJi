@@ -202,12 +202,11 @@ public class ArticleController {
     public String upload(@RequestParam("file") MultipartFile[] myfiles,
                          HttpServletRequest request) throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
         /**获s取diary整体的Json*/
         String diaryJson = request.getParameter("diaryJson");
 
-        logger.info("diaryJsonPost", diaryJson);
+        System.out.println(diaryJson);
+
         String title = request.getParameter("title");
         /**转化为obj*/
         Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
