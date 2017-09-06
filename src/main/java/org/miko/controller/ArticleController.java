@@ -114,7 +114,7 @@ public class ArticleController {
     }
 
 
-    @RequestMapping(value = "/push_articles")
+    @RequestMapping(value = "/push_articles", produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String push(@RequestParam("userId") String userId,
                        @RequestParam("isRefresh") boolean isRefresh) throws UnsupportedEncodingException {
