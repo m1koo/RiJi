@@ -40,7 +40,6 @@ public class ArticleServiceImp implements ArticleService {
 
         String unEncodeContent = articleShare.getTitle();
 
-        System.out.println(unEncodeContent);
         String encodeContent = EmojiParser.parseToAliases(unEncodeContent);
 
         articleShare.setTitle(encodeContent);
@@ -107,9 +106,15 @@ public class ArticleServiceImp implements ArticleService {
 
         ArrayList<ArticleShare> result = (ArrayList<ArticleShare>) articleShareDao
                 .getUnPushArticlesByTime(userPushArticlesInfo.getLastTime(), maxNum);
+
+        for(ArticleShare articleShare:result){
+            pushedArticleDao.insertPushedArticle(userId, articleShare.getArticleId());
+        }
+        
         /**如果新文章的数目不足，通过filter获取，并添加至中*/
         if (result.size() < maxNum) {
-            ArrayList<ArticleShare> r = (ArrayList<ArticleShare>) articleShareDao.getUnPushArticlesByFilter(userId,
+            ArrayList<ArticleShare> r = (ArrayList<ArticleShare>) articleShareDao
+                    .getUnPushArticlesByFilter(userId,
                     maxNum - result.size());
             result.addAll(r);
         }

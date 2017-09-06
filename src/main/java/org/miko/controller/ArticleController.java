@@ -120,10 +120,10 @@ public class ArticleController {
                        @RequestParam("isRefresh") boolean isRefresh) throws UnsupportedEncodingException {
 
         List<ArticleShare> articleShares;
+        /***/
 
         if (isRefresh) {
             articleShares = service.getRefreshArticles(userId, 5);
-
             System.out.println("articleShares  "+articleShares.toString());
 
         } else {
