@@ -1,5 +1,6 @@
 package org.miko.service.imp;
 
+import com.vdurmont.emoji.EmojiParser;
 import org.miko.dao.ArticleDao;
 import org.miko.dao.ArticleShareDao;
 import org.miko.dao.PushedArticleDao;
@@ -38,6 +39,12 @@ public class ArticleServiceImp implements ArticleService {
     public String insertArticleShare(ArticleShare articleShare) {
         articleShareDao.insertArticleShare(articleShare);
 
+        String unEncodeContent = articleShare.getTitle();
+        String encodeContent = EmojiParser.parseToAliases(unEncodeContent);
+
+        articleShare.setTitle(encodeContent);
+
+
         return "success";
     }
 
@@ -46,6 +53,11 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     public String insertArticle(Article article) {
+
+        String unEncodeContent = article.getContent();
+        String encodeContent = EmojiParser.parseToAliases(unEncodeContent);
+        article.setContent(encodeContent);
+
         articleDao.insertArticle(article);
 
         return "success";
@@ -54,6 +66,7 @@ public class ArticleServiceImp implements ArticleService {
 
     public Article searchArticle(String articleId) {
         Article article = articleDao.searchArticle(articleId);
+
         return article;
     }
 

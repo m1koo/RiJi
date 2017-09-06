@@ -8,6 +8,12 @@
   <name>RiJi Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+
+    <dependency>
+      <groupId>com.vdurmont</groupId>
+      <artifactId>emoji-java</artifactId>
+      <version>3.2.0</version>
+    </dependency>
     <dependency>
       <!--3.0的junit是使用编程的方式来进行测试，而junit4是使用注解的方式来运行junit-->
       <groupId>junit</groupId>
