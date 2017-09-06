@@ -123,6 +123,9 @@ public class ArticleController {
 
         if (isRefresh) {
             articleShares = service.getRefreshArticles(userId, 5);
+
+            System.out.println("articleShares  "+articleShares.toString());
+
         } else {
             articleShares = service.getNewestArticles(userId, 5);
         }
