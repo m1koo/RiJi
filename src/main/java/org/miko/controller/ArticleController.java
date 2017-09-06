@@ -41,12 +41,15 @@ public class ArticleController {
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
         String articleId = request.getParameter("articleId");
 
         Article article = service.searchArticle(articleId);
 
         String a = new Gson().toJson(article);
+
+        System.out.println("get Article");
+
+        System.out.println(a);
 
         return a;
 
@@ -56,9 +59,6 @@ public class ArticleController {
     @ResponseBody
     public String syn(HttpServletRequest request) throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
-
-        logger.info("syn", "syn");
 
         /**获s取diary整体的Json*/
         String articles = request.getParameter("articles");
