@@ -51,7 +51,9 @@ public class ArticleServiceImp implements ArticleService {
         return articleDao.searchAllArticleIds(userId);
     }
 
-    /**myslsql不支持emoji 使用转码*/
+    /**
+     * myslsql不支持emoji 使用转码
+     */
     public String insertArticle(Article article) {
 
         String unEncodeContent = article.getContent();
@@ -67,6 +69,9 @@ public class ArticleServiceImp implements ArticleService {
     public Article searchArticle(String articleId) {
         Article article = articleDao.searchArticle(articleId);
 
+        if (article == null) {
+            return null;
+        }
         String unDecodeContent = article.getContent();
         String decodeContent = EmojiParser.parseToUnicode(unDecodeContent);
         article.setContent(decodeContent);
