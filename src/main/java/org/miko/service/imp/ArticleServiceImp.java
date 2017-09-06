@@ -39,7 +39,10 @@ public class ArticleServiceImp implements ArticleService {
     public String insertArticleShare(ArticleShare articleShare) {
         articleShareDao.insertArticleShare(articleShare);
 
+
         String unEncodeContent = articleShare.getTitle();
+
+        System.out.println(unEncodeContent);
         String encodeContent = EmojiParser.parseToAliases(unEncodeContent);
 
         articleShare.setTitle(encodeContent);
