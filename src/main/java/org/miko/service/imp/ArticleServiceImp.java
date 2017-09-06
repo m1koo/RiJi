@@ -44,7 +44,6 @@ public class ArticleServiceImp implements ArticleService {
 
         articleShare.setTitle(encodeContent);
 
-
         return "success";
     }
 
@@ -67,6 +66,9 @@ public class ArticleServiceImp implements ArticleService {
     public Article searchArticle(String articleId) {
         Article article = articleDao.searchArticle(articleId);
 
+        String unDecodeContent = article.getContent();
+        String decodeContent = EmojiParser.parseToUnicode(unDecodeContent);
+        article.setContent(decodeContent);
         return article;
     }
 
