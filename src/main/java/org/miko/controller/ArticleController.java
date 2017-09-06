@@ -37,7 +37,7 @@ public class ArticleController {
     @Qualifier("userRefreshService")
     UserRefreshService userRefreshService;
 
-    @RequestMapping(value = "/get_article")
+    @RequestMapping(value = "/get_article",produces="text/plain;charset=UTF-8")
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
 
