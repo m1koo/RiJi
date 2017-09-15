@@ -3,13 +3,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.miko.dao.ArticleShareDao">
-    <select id="searchByArticleId" resultType="ArticleShare">
+    <select id="searchByArticleId" resultType="DaoArticleSharedBean">
         SELECT article_id,user_id,share_time,title
         FROM article_shared
         where article_id = #{articleId}
     </select>
 
-    <select id="searchArticlesByUser" resultType="ArticleShare">
+    <select id="searchArticlesByUser" resultType="DaoArticleSharedBean">
         SELECT article_id,user_id,share_time,title
         FROM article_shared
         where user_id = #{userId}
