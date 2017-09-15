@@ -2,7 +2,7 @@ package org.miko.service.imp;
 
 import org.miko.dao.PushedArticleDao;
 import org.miko.dao.UserPushArticlesDao;
-import org.miko.entity.UserPushArticles;
+import org.miko.entity.DaoBean.DaoUserLastRefreshBean;
 import org.miko.service.UserRefreshService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class UserRefreshServiceImp implements UserRefreshService {
     }
 
     public void updateLastPushTime(String userId, long time) {
-        UserPushArticles userPushArticles = userPushArticlesDao.getUserPushArticles(userId);
+        DaoUserLastRefreshBean userPushArticles = userPushArticlesDao.getUserPushArticles(userId);
         if (userPushArticles == null) {
             userPushArticlesDao.insertUserPushArticle(userId, time);
         } else {

@@ -1,17 +1,19 @@
-package org.miko.entity;
+package org.miko.entity.DaoBean;
+
+import org.miko.entity.DaoBean.DaoRefreshArticlesBean;
 
 import java.util.List;
 
 /**
  * Created by Miko on 2017/8/17.
  */
-public class UserPushArticles {
+public class DaoUserLastRefreshBean {
 
     private String userId;
     private long lastTime;
-    private List<PushedArticle> pushedArticles;
+    private List<DaoRefreshArticlesBean> pushedArticles;
 
-    public List<PushedArticle> getPushedArticles() {
+    public List<DaoRefreshArticlesBean> getPushedArticles() {
         return pushedArticles;
     }
 
@@ -24,7 +26,7 @@ public class UserPushArticles {
                 '}';
     }
 
-    public void setPushedArticles(List<PushedArticle> pushedArticles) {
+    public void setPushedArticles(List<DaoRefreshArticlesBean> pushedArticles) {
         this.pushedArticles = pushedArticles;
     }
 

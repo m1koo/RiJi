@@ -4,12 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.miko.dao.UserPushArticlesDao">
 
-    <resultMap id="pushMap" type="org.miko.entity.UserPushArticles">
+    <resultMap id="pushMap" type="org.miko.entity.DaoBean.DaoUserLastRefreshBean">
         <result property="userId" column="user_id" javaType="string" jdbcType="VARCHAR"/>
         <result property="lastTime" column="last_time"
                 javaType="long" jdbcType="BIGINT"/>
 
-        <collection ofType="org.miko.entity.PushedArticle"
+        <collection ofType="org.miko.entity.DaoBean.DaoRefreshArticlesBean"
                     property="pushedArticles">
 
             <result property="userId" column="user_id"

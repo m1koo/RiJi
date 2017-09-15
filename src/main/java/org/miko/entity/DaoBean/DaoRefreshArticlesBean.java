@@ -1,9 +1,9 @@
-package org.miko.entity;
+package org.miko.entity.DaoBean;
 
 /**
  * Created by Miko on 2017/8/17.
  */
-public class PushedArticle {
+public class DaoRefreshArticlesBean {
 
     @Override
     public String toString() {

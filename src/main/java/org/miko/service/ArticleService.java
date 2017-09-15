@@ -1,9 +1,7 @@
 package org.miko.service;
 
-import org.miko.dto.Result;
-import org.miko.dto.UploadExcution;
-import org.miko.entity.Article;
-import org.miko.entity.ArticleShare;
+import org.miko.entity.DaoBean.DaoArticleBean;
+import org.miko.entity.DaoBean.DaoArticleSharedBean;
 
 import java.util.List;
 
@@ -14,14 +12,14 @@ public interface ArticleService {
 
     List<String> getUserAllArticles(String userId);
 
-    String insertArticle(Article article);
+    String insertArticle(DaoArticleBean article);
 
-    String insertArticleShare(ArticleShare articleShare);
+    String insertArticleShare(DaoArticleSharedBean articleShare);
 
-    Article searchArticle(String articleId);
+    DaoArticleBean searchArticle(String articleId);
 
-    List<ArticleShare> getNewestArticles(String userId,int maxNum);
+    List<DaoArticleSharedBean> getNewestArticles(String userId, int maxNum);
 
-    List<ArticleShare> getRefreshArticles(String userId,int maxNum);
+    List<DaoArticleSharedBean> getRefreshArticles(String userId, int maxNum);
 
 }

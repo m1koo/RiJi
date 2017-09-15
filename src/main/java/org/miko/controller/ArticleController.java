@@ -3,10 +3,15 @@ package org.miko.controller;
 import com.google.gson.Gson;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.io.FileUtils;
-import org.miko.entity.*;
+import org.miko.entity.ArticleCotent.ContentJson;
+import org.miko.entity.ArticleCotent.Element;
+import org.miko.entity.DaoBean.DaoArticleBean;
+import org.miko.entity.DaoBean.DaoArticleSharedBean;
+import org.miko.entity.DaoBean.DaoCommentBean;
+import org.miko.entity.DtoBean.*;
 import org.miko.enums.ElementTypeEnum;
 import org.miko.service.ArticleService;
-import org.miko.service.UserLoginService;
+import org.miko.service.CommentService;
 import org.miko.service.UserRefreshService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +35,11 @@ public class ArticleController {
 
 
     @Autowired
+    @Qualifier("commentService")
+    CommentService commentService;
+
+
+    @Autowired
     @Qualifier("articleService")
     ArticleService service;
 
@@ -38,19 +48,53 @@ public class ArticleController {
     @Qualifier("userRefreshService")
     UserRefreshService userRefreshService;
 
+
+    @RequestMapping(value = "/add_comment", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String addComment(HttpServletRequest request) throws IOException {
+
+        String articleId = request.getParameter("articleId");
+
+        String userId = request.getParameter("userId");
+
+        String commentStr = request.getParameter("commentStr");
+
+        DaoCommentBean comment = new DaoCommentBean();
+        comment.setArticleId(articleId);
+        comment.setCommentStr(commentStr);
+        comment.setUserId(userId);
+
+        commentService.insertComment(comment);
+
+        return "success";
+    }
+
+    @RequestMapping(value = "/get_article_comments",
+            produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String getArticleComments(HttpServletRequest request) throws IOException {
+
+        String articleId = request.getParameter("articleId");
+
+        List<DtoCommentBean> comments = commentService.getArticleAllComment(articleId);
+
+        DtoCommentList commentList = new DtoCommentList();
+
+        commentList.setCommentList(comments);
+
+        return new Gson().toJson(commentList);
+    }
+
+
     @RequestMapping(value = "/get_article", produces = "text/plain;charset=UTF-8")
     @ResponseBody
     public String getArticle(HttpServletRequest request) throws IOException {
 
         String articleId = request.getParameter("articleId");
 
-        Article article = service.searchArticle(articleId);
+        DaoArticleBean article = service.searchArticle(articleId);
 
         String a = new Gson().toJson(article);
-
-        System.out.println("get Article");
-
-        System.out.println(a);
 
         return a;
 
@@ -83,7 +127,7 @@ public class ArticleController {
 
         serviceArticles.removeAll(localArticlesTemp);
 
-        ArticleSynBean articleSynBean = new ArticleSynBean();
+        DtoArticleSynBean articleSynBean = new DtoArticleSynBean();
 
         articleSynBean.setPrepareDownloadArticleIds(serviceArticles);
 
@@ -99,11 +143,11 @@ public class ArticleController {
     @RequestMapping(value = "/share")
     @ResponseBody
     public String share(@RequestParam("articleId") String id, @RequestParam("title") String title) {
-        Article article = service.searchArticle(id);
+        DaoArticleBean article = service.searchArticle(id);
         if (article == null) {
             return "NoArticle";
         } else {
-            ArticleShare articleShare = new ArticleShare();
+            DaoArticleSharedBean articleShare = new DaoArticleSharedBean();
             articleShare.setTitle(title);
             articleShare.setUserId(id.split("_")[0]);
             articleShare.setArticleId(id);
@@ -119,12 +163,12 @@ public class ArticleController {
     public String push(@RequestParam("userId") String userId,
                        @RequestParam("isRefresh") boolean isRefresh) throws UnsupportedEncodingException {
 
-        List<ArticleShare> articleShares;
+        List<DaoArticleSharedBean> articleShares;
         /***/
 
         if (isRefresh) {
             articleShares = service.getRefreshArticles(userId, 5);
-            System.out.println("articleShares  "+articleShares.toString());
+            System.out.println("articleShares  " + articleShares.toString());
 
         } else {
             articleShares = service.getNewestArticles(userId, 5);
@@ -132,7 +176,7 @@ public class ArticleController {
 
         /**推送列表插入*/
         if (articleShares != null) {
-            for (ArticleShare articleShare : articleShares) {
+            for (DaoArticleSharedBean articleShare : articleShares) {
                 userRefreshService.insertArticle(userId, articleShare.getArticleId());
             }
             /**更新用户推送信息*/
@@ -140,17 +184,17 @@ public class ArticleController {
                 userRefreshService.updateLastPushTime(userId, articleShares.get(0).getShareTime());
         }
 
-        ArrayList<ArticleWorldBrief> articleWorldBriefs = new ArrayList<ArticleWorldBrief>();
-        for (ArticleShare articleShare : articleShares) {
+        ArrayList<DtoArticleSharedBriefBean> articleWorldBriefs = new ArrayList<DtoArticleSharedBriefBean>();
+        for (DaoArticleSharedBean articleShare : articleShares) {
 
-            ArticleWorldBrief brief = new ArticleWorldBrief();
+            DtoArticleSharedBriefBean brief = new DtoArticleSharedBriefBean();
 
             String articleId = articleShare.getArticleId();
 
             /**作者的id*/
             String authorId = articleShare.getUserId();
 
-            Article article = service.searchArticle(articleId);
+            DaoArticleBean article = service.searchArticle(articleId);
 
             String authorName = "miko";
 
@@ -193,7 +237,7 @@ public class ArticleController {
             brief.setPreviewPaths(previewPaths.toString());
             articleWorldBriefs.add(brief);
         }
-        ArticleWorldBriefs articles = new ArticleWorldBriefs();
+        DtoArticleSharedBriefList articles = new DtoArticleSharedBriefList();
         articles.setArticleWorldBriefs(articleWorldBriefs);
         String returnStr = new Gson().toJson(articles);
 
@@ -214,7 +258,7 @@ public class ArticleController {
 
         String title = request.getParameter("title");
         /**转化为obj*/
-        Article diaryObj = new Gson().fromJson(diaryJson, Article.class);
+        DaoArticleBean diaryObj = new Gson().fromJson(diaryJson, DaoArticleBean.class);
 
         /**获取文章的id*/
         String id = diaryObj.getArticleId();

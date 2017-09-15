@@ -41,3 +41,10 @@ SELECT share.article_id,share.user_id,share.share_time,share.title
         on share.article_id = push.article_id and push.user_id = "AN12345"
         WHERE push.article_id is null
         order by share.share_time desc limit 5;
+
+CREATE TABLE `article_comment` (
+  `article_id` varchar(40) NOT NULL,
+  `user_id` varchar(20) NOT NULL,
+  `comment_time` bigint(20) NOT NULL,
+  `comment_str` varchar(4000) not null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

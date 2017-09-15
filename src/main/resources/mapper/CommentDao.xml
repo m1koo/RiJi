@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.miko.dao.CommentDao">
+    <select id="searchByArticleId" resultType="Comment">
+        SELECT article_id,user_id,comment_time,comment_str FROM article_comment
+        where article_id = #{articleId}
+    </select>
+
+    <select id="searchByUserId" resultType="Comment">
+        SELECT article_id,user_id,comment_time,comment_str FROM article_comment
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertComment" parameterType="Comment">
+        INSERT ignore INTO article_comment(article_id,user_id,comment_time,comment_str)
+         values (#{articleId},#{userId},#{commentTime},#{commentStr});
+    </insert>
+
+</mapper>

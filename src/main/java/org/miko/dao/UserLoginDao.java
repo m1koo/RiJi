@@ -1,7 +1,6 @@
 package org.miko.dao;
 
 import org.apache.ibatis.annotations.Param;
-import org.miko.entity.UserLoginMsg;
 
 /**
  * Created by Miko on 2017/3/6.

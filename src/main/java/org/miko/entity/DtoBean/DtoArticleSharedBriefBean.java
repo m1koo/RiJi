@@ -1,9 +1,9 @@
-package org.miko.entity;
+package org.miko.entity.DtoBean;
 
 /**
  * Created by Miko on 2017/8/19.
  */
-public class ArticleWorldBrief {
+public class DtoArticleSharedBriefBean {
     private String userName;
     private String userId;
     private String articleId;

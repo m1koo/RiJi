@@ -2,8 +2,7 @@ package org.miko.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.miko.entity.ArticleShare;
-import org.miko.entity.PushedArticle;
+import org.miko.entity.DaoBean.DaoRefreshArticlesBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -27,9 +26,9 @@ public class ArticlePushDaoTest {
     @Test
     public void searchArticle() throws Exception {
 
-        List<PushedArticle> article = dao.searchByUser("miko");
+        List<DaoRefreshArticlesBean> article = dao.searchByUser("miko");
 
-        for (PushedArticle a : article) {
+        for (DaoRefreshArticlesBean a : article) {
             System.out.println(a);
         }
     }

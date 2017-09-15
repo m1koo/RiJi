@@ -2,13 +2,11 @@ package org.miko.dao;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.miko.entity.PushedArticle;
-import org.miko.entity.UserPushArticles;
+import org.miko.entity.DaoBean.DaoUserLastRefreshBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by Miko on 2017/7/26.
@@ -27,7 +25,7 @@ public class UserArticlePushDaoTest {
     @Test
     public void searchArticle() throws Exception {
 
-        UserPushArticles userPushArticles = dao.getUserPushArticles("miko");
+        DaoUserLastRefreshBean userPushArticles = dao.getUserPushArticles("miko");
 
         System.out.print(userPushArticles);
     }

@@ -1,8 +1,7 @@
 package org.miko.dao;
 
 import org.apache.ibatis.annotations.Param;
-import org.miko.entity.Article;
-import org.miko.entity.ArticleShare;
+import org.miko.entity.DaoBean.DaoArticleSharedBean;
 
 import java.util.List;
 
@@ -11,15 +10,15 @@ import java.util.List;
  */
 public interface ArticleShareDao {
 
-    ArticleShare searchByArticleId(@Param("articleId") String articleId);
+    DaoArticleSharedBean searchByArticleId(@Param("articleId") String articleId);
 
-    List<ArticleShare> searchArticlesByUser(@Param("userId") String userId);
+    List<DaoArticleSharedBean> searchArticlesByUser(@Param("userId") String userId);
 
-    void insertArticleShare(ArticleShare articleShare);
+    void insertArticleShare(DaoArticleSharedBean articleShare);
 
-    List<ArticleShare> getUnPushArticlesByTime(@Param("lastTime") long lastTime, @Param("maxNum") int maxNum);
+    List<DaoArticleSharedBean> getUnPushArticlesByTime(@Param("lastTime") long lastTime, @Param("maxNum") int maxNum);
 
-    List<ArticleShare> getUnPushArticlesByFilter(@Param("userId") String userId
+    List<DaoArticleSharedBean> getUnPushArticlesByFilter(@Param("userId") String userId
             , @Param("maxNum") int maxNum);
 
 }

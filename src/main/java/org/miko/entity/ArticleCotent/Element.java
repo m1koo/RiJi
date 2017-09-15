@@ -1,4 +1,4 @@
-package org.miko.entity;
+package org.miko.entity.ArticleCotent;
 
 public class Element {
     private int elementType;

@@ -1,4 +1,4 @@
-package org.miko.entity;
+package org.miko.entity.ArticleCotent;
 
 import java.util.List;
 

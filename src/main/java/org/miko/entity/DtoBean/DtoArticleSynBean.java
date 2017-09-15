@@ -1,4 +1,4 @@
-package org.miko.entity;
+package org.miko.entity.DtoBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Miko on 2017/8/26.
  */
-public class ArticleSynBean {
+public class DtoArticleSynBean {
     List<String> prepareDownloadArticleIds;
     List<String> prepareUploadArticleIds;
 

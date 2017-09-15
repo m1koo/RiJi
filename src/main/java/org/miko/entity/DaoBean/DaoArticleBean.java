@@ -1,11 +1,11 @@
-package org.miko.entity;
+package org.miko.entity.DaoBean;
 
 import java.util.Date;
 
 /**
  * Created by Miko on 2017/3/7.
  */
-public class Article {
+public class DaoArticleBean {
     private String userId;
     private String articleId;
     private int year;

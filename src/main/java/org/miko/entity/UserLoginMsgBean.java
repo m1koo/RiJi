@@ -3,7 +3,7 @@ package org.miko.entity;
 /**
  * Created by Miko on 2017/3/6.
  */
-public class UserLoginMsg {
+public class UserLoginMsgBean {
     private String password;
     private long userId;
 

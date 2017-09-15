@@ -5,9 +5,9 @@ import org.miko.dao.ArticleDao;
 import org.miko.dao.ArticleShareDao;
 import org.miko.dao.PushedArticleDao;
 import org.miko.dao.UserPushArticlesDao;
-import org.miko.entity.Article;
-import org.miko.entity.ArticleShare;
-import org.miko.entity.UserPushArticles;
+import org.miko.entity.DaoBean.DaoArticleBean;
+import org.miko.entity.DaoBean.DaoArticleSharedBean;
+import org.miko.entity.DaoBean.DaoUserLastRefreshBean;
 import org.miko.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class ArticleServiceImp implements ArticleService {
     UserPushArticlesDao userPushArticlesDao;
 
 
-    public String insertArticleShare(ArticleShare articleShare) {
+    public String insertArticleShare(DaoArticleSharedBean articleShare) {
 
         String unEncodeContent = articleShare.getTitle();
 
@@ -56,7 +56,7 @@ public class ArticleServiceImp implements ArticleService {
     /**
      * myslsql不支持emoji 使用转码
      */
-    public String insertArticle(Article article) {
+    public String insertArticle(DaoArticleBean article) {
 
         String unEncodeContent = article.getContent();
         String encodeContent = EmojiParser.parseToAliases(unEncodeContent);
@@ -68,8 +68,8 @@ public class ArticleServiceImp implements ArticleService {
     }
 
 
-    public Article searchArticle(String articleId) {
-        Article article = articleDao.searchArticle(articleId);
+    public DaoArticleBean searchArticle(String articleId) {
+        DaoArticleBean article = articleDao.searchArticle(articleId);
 
         if (article == null) {
             return null;
@@ -84,11 +84,11 @@ public class ArticleServiceImp implements ArticleService {
      * 1.用户第一次获取推送
      * 2.用户正常打开自动刷新文章
      */
-    public List<ArticleShare> getNewestArticles(String userId, int maxNum) {
-        UserPushArticles userPushArticlesInfo = userPushArticlesDao
+    public List<DaoArticleSharedBean> getNewestArticles(String userId, int maxNum) {
+        DaoUserLastRefreshBean userPushArticlesInfo = userPushArticlesDao
                 .getUserPushArticles(userId);
         /**如果为null则说明为新用户还未曾推送，则直接推送指定数目的文章*/
-        List<ArticleShare> articleShareList = null;
+        List<DaoArticleSharedBean> articleShareList = null;
         if (userPushArticlesInfo == null) {
             articleShareList = articleShareDao.getUnPushArticlesByTime(0, maxNum);
         } else {
@@ -99,21 +99,21 @@ public class ArticleServiceImp implements ArticleService {
         return articleShareList;
     }
 
-    public List<ArticleShare> getRefreshArticles(String userId, int maxNum) {
+    public List<DaoArticleSharedBean> getRefreshArticles(String userId, int maxNum) {
 
-        UserPushArticles userPushArticlesInfo = userPushArticlesDao
+        DaoUserLastRefreshBean userPushArticlesInfo = userPushArticlesDao
                 .getUserPushArticles(userId);
 
-        ArrayList<ArticleShare> result = (ArrayList<ArticleShare>) articleShareDao
+        ArrayList<DaoArticleSharedBean> result = (ArrayList<DaoArticleSharedBean>) articleShareDao
                 .getUnPushArticlesByTime(userPushArticlesInfo.getLastTime(), maxNum);
 
-        for(ArticleShare articleShare:result){
+        for(DaoArticleSharedBean articleShare:result){
             pushedArticleDao.insertPushedArticle(userId, articleShare.getArticleId());
         }
         
         /**如果新文章的数目不足，通过filter获取，并添加至中*/
         if (result.size() < maxNum) {
-            ArrayList<ArticleShare> r = (ArrayList<ArticleShare>) articleShareDao
+            ArrayList<DaoArticleSharedBean> r = (ArrayList<DaoArticleSharedBean>) articleShareDao
                     .getUnPushArticlesByFilter(userId,
                     maxNum - result.size());
             result.addAll(r);

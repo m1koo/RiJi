@@ -1,9 +1,9 @@
-package org.miko.entity;
+package org.miko.entity.DaoBean;
 
 /**
  * Created by Miko on 2017/3/7.
  */
-public class ArticleShare {
+public class DaoArticleSharedBean {
     private String userId;
     private String articleId;
     private long shareTime;
