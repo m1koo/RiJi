@@ -20,6 +20,15 @@
 	<div id="content">
 		<div id="code">
 			<span class="comments">/**</span><br/>
+			<span class="comments">/** 我们很早就认识彼此了，想想已经有12年了。</span><br/>
+			<span class="comments">/** 时间好快，第一次牵手的场景还清晰的浮现在眼前。</span><br/>
+			<span class="comments">/** ...</span><br/>
+			<span class="comments">/** ...</span><br/>
+			<span class="comments">/** ...</span><br/>
+			<span class="comments">/** 呸呸，不矫情了，这个网站我要一直留下去。</span><br/>
+
+
+
 			<span class="space"/><span class="comments">*/</span><br/>
 			Boy i = <span class="keyword">new</span> Boy(<span class="string">"zouzou"</span>);<br/>
 			Girl u = <span class="keyword">new</span> Girl(<span class="string">"qianqian"</span>);<br/>
