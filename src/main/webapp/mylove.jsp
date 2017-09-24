@@ -1,8 +1,20 @@
+
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%--引入jstl--%>
+<%@ include file="WEB-INF/jsp/common/tag.jsp" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<%@include file="WEB-INF/jsp/common/head.jsp" %>
+</head>
+<body>
+
+
 <!DOCTYPE HTML>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
 	<title>Our Love Story</title>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<style type="text/css">
 		@font-face {
 			font-family: digit;
@@ -21,11 +33,14 @@
 		<div id="code">
 			<span class="comments">/**</span><br/>
 			<span class="comments">/** 我们很早就认识彼此了，想想已经有12年了。</span><br/>
-			<span class="comments">/** 时间好快，第一次牵手的场景还清晰的浮现在眼前。</span><br/>
+			<span class="comments">/** 时间好快，第一次牵手的场景还清晰的浮现在眼前。#^_^#</span><br/>
+
 			<span class="comments">/** ...</span><br/>
 			<span class="comments">/** ...</span><br/>
 			<span class="comments">/** ...</span><br/>
-			<span class="comments">/** 呸呸，不矫情了，这个网站我要一直留下去。</span><br/>
+			<span class="comments">/** 呸呸呸，不矫情了。(눈_눈) </span><br/>
+
+			<span class="comments">/** 这个网址要一直留下去，纪念我们的爱情。(*^‧^*)  </span><br/>
 
 
 
@@ -44,7 +59,7 @@
 			<span class="comments">// And take care of u and our love.</span><br/>
 			i.takeCareOf(u);<br/>
 
-			<span class="comments">// Fighting!</span><br/>
+			<span class="comments">// Fighting! ~^o^~</span><br/>
 			i.strive();u.strive();<br/>
 
 			<span class="comments">// Just believe, after a short time, we will live happily ever after.</span><br/>
